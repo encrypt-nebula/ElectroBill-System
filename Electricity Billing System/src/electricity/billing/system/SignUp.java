@@ -2,10 +2,8 @@ package electricity.billing.system;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
+import java.sql.ResultSet;
 
 public class SignUp extends JFrame implements ActionListener{
     TextField employeeText, userText, nameText, passwordText, meterText;
@@ -67,9 +65,29 @@ public class SignUp extends JFrame implements ActionListener{
         name.setBounds(30,170,100,20);
         add(name);
 
-        nameText = new TextField();
+        nameText = new TextField("");
         nameText.setBounds(150,170,120,20);
         add(nameText);
+
+        meterText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                try{
+                    DataBase c = new DataBase();
+                    ResultSet result = c.statement.executeQuery("select * from Signup where meter_no = '"+meterText.getText()+"'");
+                    if(result.next()){
+                        nameText.setText(result.getString("name"));
+                    }
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         JLabel password = new JLabel("Password");
         password.setBounds(30,210,100,20);
@@ -85,6 +103,7 @@ public class SignUp extends JFrame implements ActionListener{
                 String user = createAs.getSelectedItem();
                 if(user.equals("Customer")){
                     employeeID.setVisible(false);
+                    nameText.setEditable(false);
                     employeeText.setVisible(false);
                     meterNum.setVisible(true);
                     meterText.setVisible(true);
@@ -125,8 +144,11 @@ public class SignUp extends JFrame implements ActionListener{
              try{
                 DataBase c = new DataBase();
                 String query = null;
-                query = "insert into Signup value('"+smeterNum+"', '"+susername+"', '"+sname+"','"+spassword+"','"+schoice+"')";
-
+                if(schoice.equals("Admin")) {
+                    query = "insert into Signup value('"+smeterNum+"', '"+susername+"', '"+sname+"','"+spassword+"','"+schoice+"')";
+                } else{
+                    query = "update Signup set username = '"+susername+"',password = '"+spassword+"',user_type = '"+schoice+"' where meter_no = '"+smeterNum+"'";
+                }
                 c.statement.executeUpdate(query);
 
                 JOptionPane.showMessageDialog(null, "Account Created");

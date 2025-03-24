@@ -1,6 +1,6 @@
 package electricity.billing.system;
 
-import com.mysql.cj.log.Log;
+//import com.mysql.cj.log.Log;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,13 @@ import java.awt.event.ActionListener;
 
 
 public class Main_Class extends JFrame implements ActionListener{
-    JMenuItem new_Customer, cosDetail, depDetail, calculateBill, updateInfo, viewInfo, payBills, billdetails, genBill, notepad, calculator, eexit;
 
-    Main_Class(){
+    String acc_type, meterPass;
+
+    Main_Class(String acc_type, String meterPass){
         super("Electricity Billing System");
+        this.acc_type = acc_type;
+        this.meterPass = meterPass;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         ImageIcon bgIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/main_image.png"));
@@ -26,9 +29,9 @@ public class Main_Class extends JFrame implements ActionListener{
 
         JMenu menu = new JMenu("Menu");
         menu.setFont(new Font("serif",Font.PLAIN,15));
-        menuBar.add(menu);
 
-        new_Customer = new JMenuItem("New Customer");
+
+        JMenuItem new_Customer = new JMenuItem("New Customer");
         new_Customer.setFont(new Font("monospace", Font.PLAIN, 13));
         ImageIcon newCosIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/newcustomer.png"));
         Image newCosImage = newCosIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -36,7 +39,7 @@ public class Main_Class extends JFrame implements ActionListener{
         new_Customer.addActionListener(this);
         menu.add(new_Customer);
 
-        cosDetail = new JMenuItem("Costumer Detail");
+        JMenuItem cosDetail = new JMenuItem("Costumer Detail");
         cosDetail.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon cosDetailIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/customerDetails.png"));
         Image cosDetailImage = cosDetailIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -44,7 +47,7 @@ public class Main_Class extends JFrame implements ActionListener{
         cosDetail.addActionListener(this);
         menu.add(cosDetail);
 
-        depDetail = new JMenuItem("Deposit Details");
+        JMenuItem depDetail = new JMenuItem("Deposit Details");
         depDetail.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon depDetailIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/depositDetails.png"));
         Image depDetailImage = depDetailIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -52,7 +55,7 @@ public class Main_Class extends JFrame implements ActionListener{
         depDetail.addActionListener(this);
         menu.add(depDetail);
 
-        calculateBill = new JMenuItem("Calculate Bill");
+        JMenuItem calculateBill = new JMenuItem("Calculate Bill");
         calculateBill.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon calculateIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/calculatorbills.png"));
         Image calculateImage = calculateIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -62,9 +65,8 @@ public class Main_Class extends JFrame implements ActionListener{
 
         JMenu info = new JMenu("Information");
         info.setFont(new Font("serif",Font.PLAIN,15));
-        menuBar.add(info);
 
-        updateInfo = new JMenuItem("Update Information");
+        JMenuItem updateInfo = new JMenuItem("Update Information");
         updateInfo.setFont(new Font("monospace", Font.PLAIN,13));
         ImageIcon updateInfoIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/update.png"));
         Image updateImage = updateInfoIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -72,7 +74,7 @@ public class Main_Class extends JFrame implements ActionListener{
         updateInfo.addActionListener(this);
         info.add(updateInfo);
 
-        viewInfo = new JMenuItem("View information");
+        JMenuItem viewInfo = new JMenuItem("View information");
         viewInfo.setFont(new Font("monospace", Font.PLAIN,13));
         ImageIcon viewInfoIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/viewinfo.png"));
         Image viewInfoImage = viewInfoIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -82,9 +84,9 @@ public class Main_Class extends JFrame implements ActionListener{
 
         JMenu user = new JMenu("User");
         user.setFont(new Font("serif",Font.PLAIN,15));
-        menuBar.add(user);
 
-        payBills = new JMenuItem("Pay Bills");
+
+        JMenuItem payBills = new JMenuItem("Pay Bills");
         payBills.setFont(new Font("monospace", Font.PLAIN,13));
         ImageIcon payBillsIcon = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/pay.png"));
         Image payBillsImage = payBillsIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -92,7 +94,7 @@ public class Main_Class extends JFrame implements ActionListener{
         payBills.addActionListener(this);
         user.add(payBills);
 
-        billdetails =new JMenuItem("Bill Details");
+        JMenuItem billdetails =new JMenuItem("Bill Details");
         billdetails.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon billdetailsImg = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/detail.png"));
         Image billdetailsImage = billdetailsImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -102,10 +104,10 @@ public class Main_Class extends JFrame implements ActionListener{
 
         JMenu bill = new JMenu("Bill");
         bill.setFont(new Font("serif",Font.PLAIN,15));
-        menuBar.add(bill);
 
 
-        genBill =new JMenuItem("Generate Bill");
+
+        JMenuItem genBill =new JMenuItem("Generate Bill");
         genBill.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon genBillImg = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/bill.png"));
         Image genBillImage = genBillImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -115,10 +117,10 @@ public class Main_Class extends JFrame implements ActionListener{
 
         JMenu utility = new JMenu("Utility");
         utility.setFont(new Font("serif",Font.PLAIN,15));
-        menuBar.add(utility);
 
 
-        notepad =new JMenuItem("Notepad");
+
+        JMenuItem notepad =new JMenuItem("Notepad");
         notepad.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon notepadImg = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/notepad.png"));
         Image notepadImage = notepadImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -127,7 +129,7 @@ public class Main_Class extends JFrame implements ActionListener{
         utility.add(notepad);
 
 
-        calculator =new JMenuItem("Calculator");
+        JMenuItem calculator =new JMenuItem("Calculator");
         calculator.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon calculatorImg = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/calculator.png"));
         Image calculatorImage = calculatorImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -140,7 +142,7 @@ public class Main_Class extends JFrame implements ActionListener{
         menuBar.add(exit);
 
 
-        eexit =new JMenuItem("Exit");
+        JMenuItem eexit =new JMenuItem("Exit");
         eexit.setFont(new Font("monospace",Font.PLAIN,13));
         ImageIcon eexitImg = new ImageIcon(ClassLoader.getSystemResource("icon/Splash/exit.png"));
         Image eexitImage = eexitImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
@@ -148,23 +150,63 @@ public class Main_Class extends JFrame implements ActionListener{
         eexit.addActionListener(this);
         exit.add(eexit);
 
+        if(acc_type.equals("Admin")){
+            menuBar.add(menu);
+        } else{
+            menuBar.add(bill);
+            menuBar.add(user);
+            menuBar.add(info);
+        }
+        menuBar.add(utility);
+        menuBar.add(exit);
+
         setLayout(new FlowLayout());
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == new_Customer) {
+        String msg = e.getActionCommand();
+        if(msg.equals("New Customer")){
             new newCustomer();
-        } else if(e.getSource() == eexit) {
-            setVisible(false);
-        }else{
-            JOptionPane.showMessageDialog(null, "Feature Under development");
+        } else if(msg.equals("Costumer Detail")){
+            new customerDetail();
+        } else if(msg.equals("Deposit Details")){
+            new depositDetails();
+        } else if(msg.equals("Calculate Bill")){
+            new calculate_bill();
+        } else if(msg.equals("Update Information")){
+            new updateInformation(meterPass);
+        } else if(msg.equals("View information")){
+            new viewInformation(meterPass);
+        } else if(msg.equals("Pay Bills")){
+            new pay_bill(meterPass);
+        } else if(msg.equals("Bill Details")){
+            new bill_details(meterPass);
+        } else if(msg.equals("Generate Bill")){
+            new generateBill(meterPass);
+        } else if(msg.equals("Notepad")){
+            try{
+                Runtime.getRuntime().exec("notepad.exe");
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        } else if(msg.equals("Calculator")){
+            try{
+                Runtime.getRuntime().exec("calc.exe");
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
         }
+        else if(msg.equals("Exit")){
+            setVisible(false);
+            new Login();
+        }
+
     }
 
     public static void main(String[] args) {
 
-        new Main_Class();
+        new Main_Class("","");
     }
 }
